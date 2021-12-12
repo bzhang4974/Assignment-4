@@ -1,4 +1,13 @@
-﻿#include <stdio.h>
+﻿#define CLEAR_BUF \
+    {\
+    int ch; \
+while ((ch = getchar()) != EOF && ch != '\n')\
+        {\
+        ; \
+        }\
+    }
+
+#include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include<windows.h>
@@ -15,7 +24,6 @@ void menu()
 void inputCheck(int guesses[], int count, int input, int tmp) {
 	while (count != 6)
 	{
-		fflush(stdin);
 		for (int i = 0; i < count; i++) {
 			if (i == 0) {
 				printf("Previous guesses:");
@@ -36,36 +44,39 @@ void inputCheck(int guesses[], int count, int input, int tmp) {
 			}
 		} //Display previous guesses
 		printf("\nPlease enter the number (incorrect guesses: %d):", count);
-		if (scanf_s("%d", &input) != 0 && input >= 1 && input <= 1000) {
-			if (input == tmp)
-			{
-				printf("Congratulations! You win!\n");
-				printf("The game will exit in 3 seconds.");
-				Sleep(3000);
-				system("cls");
-				exit(0);
-			}
-			else if (input >= tmp)
-			{
-				printf("The guess is too high.\n");
-				guesses[count] = input;
-				count++;
-			}
-			else if (input <= tmp)
-			{
-				printf("The guess is too low.\n");
-				guesses[count] = input;
-				count++;
-			}
+		scanf_s("%d", &input);
+		CLEAR_BUF
+			if (input != 0 && input >= 1 && input <= 1000) {
 
-		} //valid input check
+				if (input == tmp)
+				{
+					printf("Congratulations! You win!\n");
+					printf("The game will exit in 3 seconds.");
+					Sleep(3000);
+					system("cls");
+					exit(0);
+				}
+				else if (input >= tmp)
+				{
+					printf("The guess is too high.\n");
+					guesses[count] = input;
+					count++;
+				}
+				else if (input <= tmp)
+				{
+					printf("The guess is too low.\n");
+					guesses[count] = input;
+					count++;
+				}
 
-		else {
-			printf("Sorry, invalid input.\n");
-			guesses[count] = -1;
-			count++;
-			continue;
-		} //invalid input
+			} //valid input check
+
+			else {
+				printf("Sorry, invalid input.\n");
+				guesses[count] = -1;
+				count++;
+				continue;
+			} //invalid input
 
 
 	} //while loop
@@ -96,6 +107,7 @@ int main()
 		menu();
 		printf("Please select an option:");
 		scanf_s("%d", &i);
+		CLEAR_BUF
 		switch (i)
 		{
 		case 0:
