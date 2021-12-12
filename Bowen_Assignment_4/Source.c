@@ -40,7 +40,7 @@ void game()
 			}
 		} //Display previous guesses
 		printf("\nPlease enter the number (incorrect guesses: %d):", count);
-		if (scanf("%d", &input) != 0 && input >= 1 && input <= 1000) {
+		if (scanf_s("%d", &input) != 0 && input >= 1 && input <= 1000) {
 			if (input == tmp)
 			{
 				printf("Congratulations! You win!\n");
@@ -90,7 +90,7 @@ int main()
 	{
 		menu();
 		printf("Please select an option:");
-		scanf("%d", &i);
+		scanf_s("%d", &i);
 		switch (i)
 		{
 		case 0:
